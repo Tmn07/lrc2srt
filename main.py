@@ -11,9 +11,8 @@ data = f.read()
 result = {}
 times = []
 for line in data.split('\n'):
-	# m = re.search('\[(.*?\..*?)]', line)
-	match_list = re.findall('\[(.*?\..*?)]', line)
-	# re.findall('\[(.*?\..*?)]', line)
+	# 00:09.36
+	match_list = re.findall('\[\d*?:\d*?\.\d*?]', line)
 	if match_list:
 		for m in match_list:
 
