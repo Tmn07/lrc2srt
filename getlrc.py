@@ -6,7 +6,7 @@ author: Tmn07
 
 import requests, json
 
-mid = '460099384'
+mid = '455502443'
 
 url = "http://music.163.com/api/song/lyric?os=pc&id="+mid+"&lv=-1"
 
@@ -22,9 +22,11 @@ r = requests.get(url+with_translate, headers=headers)
 jsondata = json.loads(r.text)
 
 with open('test.lrc', 'w') as f:
-	f.write(jsondata['lrc']['lyric'].encode('utf-8'))
+	f.write(jsondata['lrc']['lyric'])
+	# .encode('utf-8')
 	if jsondata['tlyric'].get('lyric'):
-		f.write(jsondata['tlyric']['lyric'].encode('utf-8'))
+		f.write(jsondata['tlyric']['lyric'])
+		# .encode('utf-8')
 	else:
 		print ('no translate version')
 	print ('Finish')

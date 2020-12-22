@@ -19,7 +19,7 @@ for line in data.split('\n'):
 			tmp = result.get(m)
 			if tmp:
 				# lrc
-				result[m] = tmp + "\N" + line[len(line)-line[::-1].index(']'):]
+				result[m] = tmp + "\n" + line[len(line)-line[::-1].index(']'):]
 				# result[m] = tmp + "\n" + line[len(line)-line[::-1].index(']'):]
 			else:
 				result[m] = line[len(line)-line[::-1].index(']'):]
