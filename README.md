@@ -2,7 +2,11 @@
 
 详细视频制作方案与说明查看：https://git.io/fhSBj
 
-该repo下两个脚本
+## TODO
+- [ ] 生成卡拉OK字幕
+- [x] 增加qq音乐的歌词文件获取
+
+该repo下三个脚本
 
 ## getlrc.py
 
@@ -18,6 +22,23 @@ https://music.163.com/song?id=455502443&userid=331603845
 ```
 
 使用方法：`python getlrc.py` （需要requests库
+
+api说明：
+
+```
+http://get.ftqq.com/7430.get
+```
+
+## getlrc_qq.py
+
+适用于qq音乐的歌词获取。用歌曲sid或者分享短链接均可
+
+api说明：
+
+```
+https://blog.csdn.net/qq_41979349/article/details/102458551
+https://www.cnblogs.com/twilightlemon/p/7076938.html
+```
 
 ## main.py
 

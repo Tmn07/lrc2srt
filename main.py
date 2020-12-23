@@ -6,6 +6,7 @@ author: Tmn07
 import re
 
 f = open('test.lrc', 'r')
+
 data = f.read()
 
 result = {}
@@ -15,11 +16,13 @@ for line in data.split('\n'):
 	match_list = re.findall('\[\d*?:\d*?\.\d*?]', line)
 	if match_list:
 		for m in match_list:
-
 			tmp = result.get(m)
-			if tmp:
-				# lrc
-				result[m] = tmp + "\n" + line[len(line)-line[::-1].index(']'):]
+			if tmp!=None:
+				if tmp == "" or line[len(line)-line[::-1].index(']'):] == "//": ## qq music中 翻译空白区 与 部分不翻译时用//来替代
+					continue
+				else:
+					# lrc
+					result[m] = tmp + "\n" + line[len(line)-line[::-1].index(']'):]
 				# result[m] = tmp + "\n" + line[len(line)-line[::-1].index(']'):]
 			else:
 				result[m] = line[len(line)-line[::-1].index(']'):]
@@ -27,6 +30,7 @@ for line in data.split('\n'):
 	else:
 		continue
 
+f.close()
 def maketime(start ,end):
 	if start == 0:
 		ss = '00:00:00,000'
