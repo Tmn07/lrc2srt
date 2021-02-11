@@ -21,7 +21,7 @@ r = requests.get(url+with_translate, headers=headers)
 
 jsondata = json.loads(r.text)
 
-with open('test.lrc', 'w') as f:
+with open('test.lrc', 'w', encoding='utf-8') as f:
 	f.write(jsondata['lrc']['lyric'])
 	# .encode('utf-8')
 	if jsondata['tlyric'].get('lyric'):

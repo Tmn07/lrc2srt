@@ -5,7 +5,9 @@ import requests, json
 import re
 
 ########## 分享短链接跳转#########
-url = "https://c.y.qq.com/base/fcgi-bin/u?__=yeCSA3N"
+# https://c.y.qq.com/base/fcgi-bin/u?__=ltqS7dy
+# https://c.y.qq.com/base/fcgi-bin/u?__=UxGmt3g
+url = "https://c.y.qq.com/base/fcgi-bin/u?__=ltqS7dy"
 r = requests.get(url)
 matchs = re.findall('mid&#61;.*?&#38;no_redirect', r.text)
 
@@ -35,7 +37,7 @@ jsondata = json.loads(r.text)
 
 
 
-with open('test.lrc', 'w') as f:
+with open('test.lrc', 'w', encoding='utf-8') as f:
     f.write(jsondata['lyric'])
     # .encode('utf-8')
     if jsondata.get('trans'):

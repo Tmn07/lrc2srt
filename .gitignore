@@ -4,3 +4,5 @@ log.py
 *.srt
 *.lrc
 *.html
+*.ass
+*.txt
