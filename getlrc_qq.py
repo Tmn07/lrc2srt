@@ -1,18 +1,15 @@
 #coding=utf-8
 
-
 import requests, json
 import re
 
 ########## 分享短链接跳转#########
-# https://c.y.qq.com/base/fcgi-bin/u?__=ltqS7dy
-# https://c.y.qq.com/base/fcgi-bin/u?__=UxGmt3g
-url = "https://c.y.qq.com/base/fcgi-bin/u?__=ltqS7dy"
+url = "https://c.y.qq.com/base/fcgi-bin/u?__=UxGmt3g"
+
 r = requests.get(url)
 matchs = re.findall('mid&#61;.*?&#38;no_redirect', r.text)
 
 sid = matchs[0][8:-16]
-# sid = "000FQsdG4W3o9l"
 
 get_para = {
     "songmid" : sid,
@@ -39,10 +36,8 @@ jsondata = json.loads(r.text)
 
 with open('test.lrc', 'w', encoding='utf-8') as f:
     f.write(jsondata['lyric'])
-    # .encode('utf-8')
     if jsondata.get('trans'):
         f.write(jsondata['trans'])
-        # .encode('utf-8')
     else:
         print ('no translate version')
     print ('Finish')

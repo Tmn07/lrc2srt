@@ -1,28 +1,20 @@
 # lrc2srt
 
-详细视频制作方案与说明查看：https://git.io/fhSBj
+该repo下三类脚本
 
-使用注意，制作出srt文件后，用字幕软件打开平移时间轴，最后一条字幕的时间需要手动调整。
+getlrc_\*\*.py 用于获取QQ音乐或网易云音乐的歌词文件(\*.lrc)
 
-以Aegisub为例，窗口-平移时间-时间(开始与结束，开始，结束)，对时间进行调整。
+main.py 用于将歌词文件初步处理转化成简易字幕文件(*.srt)
 
-K轴设置positions设置目前写死在main.py里的positions变量里，不同分辨率视频可能要求的位置不同。
+MySelection.lua Aegisub自动化脚本，用于全选奇数或偶数行，仅用于个人做伪K轴时配合使用。
 
-然后生成的srt文件在aegisub中套用样式即可。
+## getlrc_\*\*.py
 
-压制代码如： `ffmpeg -i g.mp4 -vf "ass=result.ass" gg.mp4`
+### 网易云音乐
 
-## TODO
-- [x] 生成卡拉OK字幕
-- [x] 增加qq音乐的歌词文件获取
+使用方法：`python getlrc_163.py` 
 
-该repo下三个脚本
-
-## getlrc.py
-
-用于获取歌词文件，保存当前目录test.lrc中
-
-修改其中mid就可以
+修改其中mid即可
 
 mid的获取，再网易云中选择分享-复制链接
 
@@ -31,27 +23,55 @@ https://music.163.com/song?id=455502443&userid=331603845
 //其中id的参数就是程序中的mid
 ```
 
-使用方法：`python getlrc.py` （需要requests库
+### QQ音乐
 
-api说明：
+使用方法：`python getlrc_qq.py` 
 
-```
-http://get.ftqq.com/7430.get
-```
-
-## getlrc_qq.py
-
-适用于qq音乐的歌词获取。用歌曲sid或者分享短链接均可
-
-api说明：
-
-```
-https://blog.csdn.net/qq_41979349/article/details/102458551
-https://www.cnblogs.com/twilightlemon/p/7076938.html
-```
+修改程序中分享短链接或使用歌曲的sid均可
 
 ## main.py
 
-用于将当前目录test.lrc文件，转化成result.srt字幕文件格式
-
 使用方法：`python main.py`
+
+将歌词文件test.lrc初步处理转化成简易字幕文件result.srt
+
+是否制作伪K轴或者保留翻译自行修改变量
+
+```python
+K = 1 # 伪K轴，即是否进行奇偶定位
+positions = ["{\pos(80,900)}", "{\pos(1840,1024)}"] # 奇偶位置，不同分辨率视频需调整
+
+translate = 0 # 是否保留中文翻译
+```
+
+**注：**最后一条字幕的时间可能会有问题
+
+## MySelection.lua
+
+放入Aegisub的automation\autoload目录下则会自动载入，或者手动载入
+
+个人制作伪K轴时，对奇数偶数行采用的对齐方式不同，通过插件选中后批量对奇数偶数行套用不同样式
+
+![image-20210213134208471](.\pic\MySelection.png)
+
+## 参考
+
+[网易云音乐常用API浅析](http://get.ftqq.com/7430.get)
+
+QQ音乐接口相关：
+
+https://blog.csdn.net/qq_41979349/article/details/102458551
+
+https://www.cnblogs.com/twilightlemon/p/7076938.html
+
+## 个人制作流程
+
+1. getlrc.py获取歌词文件
+2. main.py根据需求生成srt字幕
+3. 使用软件对srt进一步调整（如校准时间轴，调整最后一条字幕的时间，调整奇偶样式，过长的过场前字幕调整）
+   - 窗口导航栏-平移时间-时间(开始与结束，开始，结束)，可以对时间进行调整（制作伪K轴时，可能需要提前出现或延迟结束，也可在“平移时间”里做到）
+   - 奇偶样式采用不同对齐方式，使用MySelection.lua脚本批量选中，修改样式
+   - 之后可以考虑套用automatic kalaoke模板啥的？
+4. 保存得到ass文件，进行压制
+   - 压制代码如： `ffmpeg -i g.mp4 -vf "ass=result.ass" gg.mp4`
+   - 个人视频制作方案与ffmpeg命令说明查看：https://git.io/fhSBj

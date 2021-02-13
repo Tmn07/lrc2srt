@@ -9,13 +9,14 @@ f = open('test.lrc', 'r', encoding='utf-8')
 
 data = f.read()
 
-positions = ["{\pos(800,1030)}", "{\pos(80,900)}"]
-K = 1
 count = 0
-translate = 0
-# 提前出现与消失延后时间 使用aegisub来调整
-# pre = 0.8
-# post = 0.8
+K = 1 # 伪K轴，即是否进行奇偶定位
+# 视频分辨率为1920*1080，在不同分辨率视频下可能需要调整。
+# positions = ["{\pos(800,1030)}", "{\pos(80,900)}"]
+positions = ["{\pos(80,900)}", "{\pos(1840,1024)}"] # 奇偶位置
+
+translate = 0 # 是否保留中文翻译
+
 
 result = {}
 times = []

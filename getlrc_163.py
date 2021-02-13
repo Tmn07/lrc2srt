@@ -1,8 +1,4 @@
 #coding=utf-8
-'''
-这篇文章原址可能不能访问了，API参考：http://get.ftqq.com/7430.get
-author: Tmn07
-'''
 
 import requests, json
 
@@ -23,10 +19,8 @@ jsondata = json.loads(r.text)
 
 with open('test.lrc', 'w', encoding='utf-8') as f:
 	f.write(jsondata['lrc']['lyric'])
-	# .encode('utf-8')
 	if jsondata['tlyric'].get('lyric'):
 		f.write(jsondata['tlyric']['lyric'])
-		# .encode('utf-8')
 	else:
 		print ('no translate version')
 	print ('Finish')
